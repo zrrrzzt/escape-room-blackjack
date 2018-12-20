@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "escape-room-enigma",
+  "alias": [
+    "enigma.allthethings.win"
+  ],
+  "builds": [
+    { "src": "package.json", "use": "@now/static-build" }
+  ]
+}
