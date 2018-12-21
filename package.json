@@ -1,5 +1,5 @@
 {
-  "name": "escape-room-enigma",
+  "name": "escape-room-blackjack",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -8,16 +8,17 @@
     "inspect": "bankai inspect index.js",
     "start": "bankai start index.js",
     "test": "standard && npm run test-deps",
-    "test-deps": "dependency-check . && dependency-check . --extra --no-dev -i tachyons",
+    "test-deps": "dependency-check . && dependency-check . --extra --no-dev -i tailwindcss",
     "now-build": "bankai build index.js",
-    "deploy": "now && now alias"
+    "deploy": "now && now alias",
+    "refresh": "rm -rf node_modules && rm package-lock.json && npm install"
   },
   "dependencies": {
     "choo": "6.13.1",
     "choo-service-worker": "2.4.0",
     "crypto-shuffle": "1.0.1",
     "sheetify": "7.3.3",
-    "tachyons": "4.11.1"
+    "tailwindcss": "0.7.3"
   },
   "devDependencies": {
     "bankai": "9.15.0",
