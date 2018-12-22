@@ -1,7 +1,7 @@
 (async () => {
   const createDeck = require('./lib/create-deck')
   const createPlayer = require('./lib/create-player')
-  const isWinner = require('./lib/is-winner')
+  const pickWinner = require('./lib/pick-winner')
   let deck = createDeck()
   let table = 0
   let gotWinner = []
@@ -16,28 +16,54 @@
     name: 'Grusomme Gunnar',
     cash: 5
   })
-  table += playerOne.bet(1)
-  table += playerTwo.bet(1)
   console.log(table)
-  playerOne.draw({ cards: 2 })
-  playerTwo.draw({ cards: 2 })
-  console.log(playerOne.showHand())
-  console.log(playerTwo.showHand())
-  gotWinner = isWinner(playerOne, playerTwo)
-  if (gotWinner.length === 1) {
-    const winner = gotWinner[0]
-    console.log(winner.showStats())
-    table -= winner.win(table)
-    gotWinner = []
+  while (!playerTwo.isBroke() && !playerOne.isBroke()) {
+    table += playerOne.bet(1)
+    table += playerTwo.bet(1)
+    playerOne.draw({ cards: 2 })
+    playerTwo.draw({ cards: 2 })
+    console.log(playerOne.showHand())
+    console.log(playerTwo.showHand())
+    gotWinner = pickWinner(playerOne, playerTwo)
+    if (gotWinner.length > 0) {
+      // Got one winner
+      if (gotWinner.length === 1) {
+        const winner = gotWinner[0]
+        console.log(winner.showStats())
+        table -= winner.win(table)
+        gotWinner = []
+      }
+      // Draw
+      if (gotWinner.length === 2) {
+        console.log(`It's a draw!`)
+        gotWinner = []
+      }
+    } else {
+      // Game continues
+      playerOne.draw({ score: 17 })
+      gotWinner = pickWinner(playerOne, playerTwo)
+      // Got one winner
+      if (gotWinner.length === 1) {
+        const winner = gotWinner[0]
+        console.log(winner.showStats())
+        table -= winner.win(table)
+        gotWinner = []
+      } else {
+        // Game continues
+        playerTwo.draw({ score: playerOne.getScore() + 1 })
+        gotWinner = pickWinner(playerOne, playerTwo)
+        if (gotWinner.length === 1) {
+          // Got a winner
+          const winner = gotWinner[0]
+          console.log(winner.showStats())
+          table -= winner.win(table)
+          gotWinner = []
+        }
+      }
+    }
+    deck.newGame()
+    deck.shuffle()
+    playerOne.newGame()
+    playerTwo.newGame()
   }
-  deck.newGame()
-  deck.shuffle()
-  playerOne.newGame()
-  playerTwo.newGame()
-  playerOne.bet(1)
-  playerTwo.bet(1)
-  playerOne.draw({ cards: 2 })
-  playerTwo.draw({ cards: 2 })
-  console.log(playerOne.showHand())
-  console.log(playerTwo.showHand())
 })()
