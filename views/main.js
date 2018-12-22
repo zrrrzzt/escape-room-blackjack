@@ -1,31 +1,52 @@
 var html = require('choo/html')
 
-var TITLE = 'Enigma'
+var TITLE = 'BlackJack'
 
 module.exports = view
+
+function renderPlayer (player) {
+  const data = player.showStats()
+  return html`
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h2>${data.name}</h2>
+      <div>Cards: ${data.hand}</div>
+      <div>Cash: ${data.cash}</div>
+    </div>
+  `
+}
 
 function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
 
   return html`
-    <body class="code lh-copy">
-      <main class="pa3 cf center">
-          <form onsubmit=${handleSubmit}>
-            <input id="suggestion" placeholder="Enter your suggestion" />
-            <button type="submit" class="shadow-3 pa3 mb3 mt3 bg-white w-50 pointer">Check</button>
-          </form>
-          <div>
-          ${state.message}
-          </div>
+    <body class="container mx-auto py-8">
+      <main>
+        <h1>BlackJack</h1>
+        ${state.playerOne && renderPlayer(state.playerOne)}
+        ${state.playerTwo && renderPlayer(state.playerTwo)}
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <h2>Table: $ ${state.table}</h2>
+        </div>
+        <div class="flex items-center justify-between">
+          <button onclick=${handleBet} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow">Bet another dollar</button>
+          <button onclick=${handleDraw} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow">Draw another card</button>
+          <button onclick=${handleStop} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow">Stop</button>
+          <button onclick=${handleNewRound} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow">Start new round</button>
+        </div>
       </main>
     </body>
   `
 
-  function handleSubmit (e) {
-    e.preventDefault()
-    const suggestionField = document.getElementById('suggestion')
-    const suggestion = suggestionField.value
-    emit('suggestion:submit', suggestion)
-    suggestionField.value = ''
+  function handleBet () {
+    emit('game:bet')
+  }
+  function handleDraw () {
+    emit('game:draw')
+  }
+  function handleStop () {
+    emit('game:stop')
+  }
+  function handleNewRound () {
+    emit('game:newround')
   }
 }

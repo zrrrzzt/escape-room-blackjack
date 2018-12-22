@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "name": "escape-room-enigma",
+  "name": "escape-room-blackjack",
   "alias": [
-    "enigma.allthethings.win"
+    "blackjack.allthethings.win"
   ],
   "builds": [
     { "src": "package.json", "use": "@now/static-build" }
