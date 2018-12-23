@@ -24,6 +24,15 @@ function store (state, emitter) {
   })
 
   emitter.on('DOMContentLoaded', function () {
+    emitter.on('game:over', function () {
+      if (state.playerOne.showPocket() === 0) {
+        state.message = 'Muuwahahahah! You can not beat me!'
+      }
+      if (state.playerTwo.showPocket() === 0) {
+        state.message = `Ok.. here's the secret code: 42`
+      }
+      emitter.emit(state.events.RENDER)
+    })
     emitter.on('game:tie', function () {
       state.message = 'Tie! No winners, just loosers!'
       state.controlDisableBet = true
@@ -34,22 +43,28 @@ function store (state, emitter) {
     emitter.on('game:winner', function (winner) {
       state.table -= winner.win(state.table)
       const stats = winner.showStats()
-      state.message = `${stats.name} wins it all!`
+      state.message = `Winner: ${stats.name}! ...the winner takes it aaaaalllll...`
       state.controlDisableBet = true
       state.controlDisableDraw = true
       state.controlDisableStop = true
       emitter.emit(state.events.RENDER)
     })
     emitter.on('game:bet', function () {
-      state.table += state.playerOne.bet(1)
-      state.table += state.playerTwo.bet(1)
-      state.controlDisableBet = true
+      if (state.playerOne.showPocket() > 0 && state.playerTwo.showPocket() > 0) {
+        state.table += state.playerOne.bet(1)
+        state.table += state.playerTwo.bet(1)
+        state.controlDisableBet = true
+      } else {
+        state.controlDisableBet = true
+      }
       emitter.emit(state.events.RENDER)
     })
     emitter.on('game:draw', function () {
       state.playerOne.draw()
-      const gotWinner = pickWinner(state.playerOne, state.playerTwo)
-      if (gotWinner.length === 1) {
+      const gotBlackJack = state.playerOne.getScore() === 21
+      const toHighScore = state.playerOne.getScore() > 21
+      if (gotBlackJack || toHighScore) {
+        const gotWinner = pickWinner(state.playerOne, state.playerTwo)
         emitter.emit('game:winner', gotWinner[0])
       } else {
         emitter.emit(state.events.RENDER)
@@ -71,29 +86,35 @@ function store (state, emitter) {
       state.message = ''
     })
     emitter.on('game:newround', function () {
-      emitter.emit('game:resetcontrols')
-      state.deck.newGame()
-      state.deck.shuffle()
-      state.playerOne.newGame()
-      state.playerTwo.newGame()
-      state.table += state.playerOne.bet(1)
-      state.table += state.playerTwo.bet(1)
-      state.playerOne.draw({ cards: 2 })
-      state.playerTwo.draw({ cards: 2 })
-      const gotBlackJack = state.playerOne.getScore() === 21 || state.playerTwo.getScore() === 21
-      if (gotBlackJack) {
-        const gotWinner = pickWinner(state.playerOne, state.playerTwo)
-        if (gotWinner.length === 1) {
-          emitter.emit('game:winner', gotWinner[0])
-        } else if (gotWinner.length === 2) {
-          emitter.emit('game:tie')
-        }
+      const gameOver = state.playerOne.showPocket() === 0 || state.playerTwo.showPocket() === 0
+      if (gameOver) {
+        state.controlDisableNewRound = false
+        emitter.emit('game:over')
       } else {
-        // No more cash
-        if (state.playerOne.cash === 0 || state.playerTwo.cash === 0) {
-          state.controlDisableBet = true
+        emitter.emit('game:resetcontrols')
+        state.deck.newGame()
+        state.deck.shuffle()
+        state.playerOne.newGame()
+        state.playerTwo.newGame()
+        state.table += state.playerOne.bet(1)
+        state.table += state.playerTwo.bet(1)
+        state.playerOne.draw({ cards: 2 })
+        state.playerTwo.draw({ cards: 2 })
+        const gotBlackJack = state.playerOne.getScore() === 21 || state.playerTwo.getScore() === 21
+        if (gotBlackJack) {
+          const gotWinner = pickWinner(state.playerOne, state.playerTwo)
+          if (gotWinner.length === 1) {
+            emitter.emit('game:winner', gotWinner[0])
+          } else if (gotWinner.length === 2) {
+            emitter.emit('game:tie')
+          }
+        } else {
+          // No more cash
+          if (state.playerOne.showPocket() === 0 || state.playerTwo.showPocket() === 0) {
+            state.controlDisableBet = true
+          }
+          emitter.emit(state.events.RENDER)
         }
-        emitter.emit(state.events.RENDER)
       }
     })
     emitter.emit('game:newround')
