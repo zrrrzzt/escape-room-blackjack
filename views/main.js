@@ -11,6 +11,7 @@ function renderPlayer (player) {
       <h2>${data.name}</h2>
       <div>Cards: ${data.hand}</div>
       <div>Cash: ${data.cash}</div>
+      <div>Score: ${data.score}</div>
     </div>
   `
 }
@@ -26,12 +27,13 @@ function view (state, emit) {
         ${state.playerTwo && renderPlayer(state.playerTwo)}
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <h2>Table: $ ${state.table}</h2>
+          <div>${state.message}</div>
         </div>
         <div class="flex items-center justify-between">
-          <button onclick=${handleBet} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow">Bet another dollar</button>
-          <button onclick=${handleDraw} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow">Draw another card</button>
-          <button onclick=${handleStop} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow">Stop</button>
-          <button onclick=${handleNewRound} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow">Start new round</button>
+          <button onclick=${handleBet} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow${state.controlDisableBet ? ' cursor-not-allowed' : ''}" ${state.controlDisableBet ? 'disabled' : ''}>Bet another dollar</button>
+          <button onclick=${handleDraw} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow${state.controlDisableDraw ? ' cursor-not-allowed' : ''}" ${state.controlDisableDraw ? 'disabled' : ''}>Draw another card</button>
+          <button onclick=${handleStop} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow${state.controlDisableStop ? ' cursor-not-allowed' : ''}" ${state.controlDisableStop ? 'disabled' : ''}>Stop</button>
+          <button onclick=${handleNewRound} class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow${state.controlDisableNewRound ? ' cursor-not-allowed' : ''}" ${state.controlDisableNewRound ? 'disabled' : ''}>Start new round</button>
         </div>
       </main>
     </body>
