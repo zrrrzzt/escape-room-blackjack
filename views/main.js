@@ -33,7 +33,7 @@ function view (state, emit) {
           <button onclick=${handleBet} class="flex-1 bg-white hover:bg-grey-lightest text-grey-darkest font-semibold my-2 py-4 px-4 border border-grey-light rounded shadow${state.controlDisableBet ? ' cursor-not-allowed' : ''}" ${state.controlDisableBet ? 'disabled' : ''}>Bet</button>
           <button onclick=${handleDraw} class="flex-1 bg-white hover:bg-grey-lightest text-grey-darkest font-semibold my-2 py-4 px-4 border border-grey-light rounded shadow${state.controlDisableDraw ? ' cursor-not-allowed' : ''}" ${state.controlDisableDraw ? 'disabled' : ''}>Hit</button>
           <button onclick=${handleStop} class="flex-1 bg-white hover:bg-grey-lightest text-grey-darkest font-semibold my-2 py-4 px-4 border border-grey-light rounded shadow${state.controlDisableStop ? ' cursor-not-allowed' : ''}" ${state.controlDisableStop ? 'disabled' : ''}>Stand</button>
-          <button onclick=${handleNewRound} class="flex-1 bg-white hover:bg-grey-lightest text-grey-darkest font-semibold my-2 py-4 px-4 border border-grey-light rounded shadow${state.controlDisableNewRound ? ' cursor-not-allowed' : ''}" ${state.controlDisableNewRound ? 'disabled' : ''}>New deal</button>
+          <button onclick=${handleNewRound} class="flex-1 bg-white hover:bg-grey-lightest text-grey-darkest font-semibold my-2 py-4 px-4 border border-grey-light rounded shadow${state.controlDisableNewRound ? ' cursor-not-allowed' : ''}" ${state.controlDisableNewRound ? 'disabled' : ''}>New round</button>
         </div>
       </main>
     </body>
