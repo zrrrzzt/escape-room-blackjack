@@ -8,7 +8,7 @@ function renderPlayer (player) {
   const data = player.showStats()
   return html`
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h2>${data.name}</h2>
+      <h1>${data.name}</h1>
       <div>Cards: ${data.hand}</div>
       <div>Cash: ${data.cash}</div>
       <div>Score: ${data.score}</div>
@@ -22,11 +22,10 @@ function view (state, emit) {
   return html`
     <body class="container mx-auto py-8">
       <main>
-        <h1>BlackJack</h1>
         ${state.playerOne && renderPlayer(state.playerOne)}
         ${state.playerTwo && renderPlayer(state.playerTwo)}
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <h2>Table: $ ${state.table}</h2>
+          <h1>Table: $ ${state.table}</h1>
           <div>${state.message}</div>
         </div>
         <div class="flex flex-col md:flex-row">
