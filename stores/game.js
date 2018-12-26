@@ -19,7 +19,7 @@ function store (state, emitter) {
   })
   state.playerTwo = createPlayer({
     deck: state.deck,
-    name: 'Grusomme Gunnar',
+    name: 'GrusommeGunnar',
     cash: 5
   })
 

@@ -5,19 +5,22 @@ module.exports = view
 
 function renderPlayer (player) {
   const data = player.showStats()
+  const list = [...Array(data.cash).keys()]
+  const money = data.cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" width="100" />`) : ''
   return html`
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <img src="../assets/images/${data.name}.png" width="100" class="float-right" />
       <h1>${data.name}</h1>
       <div>Cards: ${data.hand}</div>
-      <div>Cash: ${data.cash}</div>
       <div>Score: ${data.score}</div>
+      <div>${money}</div>
     </div>
   `
 }
 
 function renderTable (cash) {
   const list = [...Array(cash).keys()]
-  const money = cash > 0 ? list.map(item => html`<img src="../assets/images/money.png" width="100" />`) : ''
+  const money = cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" width="100" />`) : ''
   return html`
     <div>
       ${money}
