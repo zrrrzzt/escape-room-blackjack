@@ -6,7 +6,7 @@ module.exports = view
 function renderPlayer (player) {
   const data = player.showStats()
   const list = [...Array(data.cash).keys()]
-  const money = data.cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" width="100" />`) : ''
+  const money = data.cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" width="25" />`) : ''
   return html`
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <img src="../assets/images/${data.name}.png" width="100" class="float-right" />
@@ -20,7 +20,7 @@ function renderPlayer (player) {
 
 function renderTable (cash) {
   const list = [...Array(cash).keys()]
-  const money = cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" width="100" />`) : ''
+  const money = cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" width="25" />`) : ''
   return html`
     <div>
       ${money}
