@@ -38,6 +38,7 @@ function store (state, emitter) {
       state.controlDisableBet = true
       state.controlDisableDraw = true
       state.controlDisableStop = true
+      state.controlDisableNewRound = false
       emitter.emit(state.events.RENDER)
     })
     emitter.on('game:winner', function (winner) {
@@ -47,6 +48,7 @@ function store (state, emitter) {
       state.controlDisableBet = true
       state.controlDisableDraw = true
       state.controlDisableStop = true
+      state.controlDisableNewRound = false
       emitter.emit(state.events.RENDER)
     })
     emitter.on('game:bet', function () {
@@ -92,6 +94,7 @@ function store (state, emitter) {
         emitter.emit('game:over')
       } else {
         emitter.emit('game:resetcontrols')
+        state.controlDisableNewRound = true
         state.deck.newGame()
         state.deck.shuffle()
         state.playerOne.newGame()

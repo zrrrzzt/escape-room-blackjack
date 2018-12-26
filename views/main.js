@@ -1,6 +1,5 @@
-var html = require('choo/html')
-
-var TITLE = 'BlackJack'
+const html = require('choo/html')
+const TITLE = 'BlackJack'
 
 module.exports = view
 
@@ -16,6 +15,16 @@ function renderPlayer (player) {
   `
 }
 
+function renderTable (cash) {
+  const list = [...Array(cash).keys()]
+  const money = cash > 0 ? list.map(item => html`<img src="../assets/images/money.png" width="100" />`) : ''
+  return html`
+    <div>
+      ${money}
+    </div>
+  `
+}
+
 function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
 
@@ -25,7 +34,7 @@ function view (state, emit) {
         ${state.playerOne && renderPlayer(state.playerOne)}
         ${state.playerTwo && renderPlayer(state.playerTwo)}
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <h1>Table: $ ${state.table}</h1>
+          ${state.table && state.table > 0 ? renderTable(state.table) : ''}
           <div>${state.message}</div>
         </div>
         <div class="flex flex-col md:flex-row">
