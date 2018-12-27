@@ -4,6 +4,9 @@ const TITLE = 'BlackJack'
 module.exports = view
 
 function renderPlayer (player) {
+  if (!player) {
+    return false
+  }
   const data = player.showStats()
   const list = [...Array(data.cash).keys()]
   const hand = data.hand.split(', ')
@@ -20,6 +23,9 @@ function renderPlayer (player) {
 }
 
 function renderTable (cash) {
+  if (!cash) {
+    return false
+  }
   const list = [...Array(cash).keys()]
   const money = cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" alt="Token with value 1 dollar" class="w-12" />`) : ''
   return html`

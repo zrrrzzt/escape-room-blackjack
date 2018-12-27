@@ -4,6 +4,9 @@
   "alias": [
     "blackjack.allthethings.win"
   ],
+  "env": {
+    "NODE_ENV": "production"
+  },
   "builds": [
     { "src": "package.json", "use": "@now/static-build" }
   ],
