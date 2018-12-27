@@ -7,11 +7,11 @@ function renderPlayer (player) {
   const data = player.showStats()
   const list = [...Array(data.cash).keys()]
   const hand = data.hand.split(', ')
-  const cards = hand.map(card => html`<img src="../assets/images/cards/${card}.png" alt="Card with value ${card}" width="75" />`)
-  const money = data.cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" alt="Token with value 1 dollar" width="50" />`) : ''
+  const cards = hand.map(card => html`<img src="../assets/images/cards/${card}.png" alt="Card with value ${card}" class="w-24" />`)
+  const money = data.cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" alt="Token with value 1 dollar" class="w-12" />`) : ''
   return html`
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <img src="../assets/images/${data.name}.png" width="100" alt="Player avatar for ${data.name}" class="float-right" />
+      <img src="../assets/images/${data.name}.png" alt="Player avatar for ${data.name}" class="float-right w-24" />
       <h1>${data.name} ${data.score}</h1>
       <div>${cards}</div>
       <div>${money}</div>
@@ -21,7 +21,7 @@ function renderPlayer (player) {
 
 function renderTable (cash) {
   const list = [...Array(cash).keys()]
-  const money = cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" alt="Token with value 1 dollar" width="50" />`) : ''
+  const money = cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" alt="Token with value 1 dollar" class="w-12" />`) : ''
   return html`
     <div>
       ${money}
@@ -41,7 +41,7 @@ function view (state, emit) {
           ${state.table && state.table > 0 ? renderTable(state.table) : ''}
           <div>${state.message}</div>
         </div>
-        <div class="flex flex-col md:flex-row">
+        <div class="flex flex-row">
           <button onclick=${handleBet} class="flex-1 bg-white hover:bg-grey-lightest text-grey-darkest font-semibold my-1 py-4 px-4 border border-grey-light rounded shadow${state.controlDisableBet ? ' cursor-not-allowed' : ''}" ${state.controlDisableBet ? 'disabled' : ''}>Bet</button>
           <button onclick=${handleDraw} class="flex-1 bg-white hover:bg-grey-lightest text-grey-darkest font-semibold my-1 py-4 px-4 border border-grey-light rounded shadow${state.controlDisableDraw ? ' cursor-not-allowed' : ''}" ${state.controlDisableDraw ? 'disabled' : ''}>Hit</button>
           <button onclick=${handleStop} class="flex-1 bg-white hover:bg-grey-lightest text-grey-darkest font-semibold my-1 py-4 px-4 border border-grey-light rounded shadow${state.controlDisableStop ? ' cursor-not-allowed' : ''}" ${state.controlDisableStop ? 'disabled' : ''}>Stand</button>
