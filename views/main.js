@@ -7,11 +7,11 @@ function renderPlayer (player) {
   const data = player.showStats()
   const list = [...Array(data.cash).keys()]
   const hand = data.hand.split(', ')
-  const cards = hand.map(card => html`<img src="../assets/images/cards/${card}.png" width="75" />`)
-  const money = data.cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" width="50" />`) : ''
+  const cards = hand.map(card => html`<img src="../assets/images/cards/${card}.png" alt="Card with value ${card}" width="75" />`)
+  const money = data.cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" alt="Token with value 1 dollar" width="50" />`) : ''
   return html`
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <img src="../assets/images/${data.name}.png" width="100" class="float-right" />
+      <img src="../assets/images/${data.name}.png" width="100" alt="Player avatar for ${data.name}" class="float-right" />
       <h1>${data.name} ${data.score}</h1>
       <div>${cards}</div>
       <div>${money}</div>
@@ -21,7 +21,7 @@ function renderPlayer (player) {
 
 function renderTable (cash) {
   const list = [...Array(cash).keys()]
-  const money = cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" width="50" />`) : ''
+  const money = cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" alt="Token with value 1 dollar" width="50" />`) : ''
   return html`
     <div>
       ${money}
