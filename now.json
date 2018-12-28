@@ -12,6 +12,16 @@
   ],
   "routes": [
     {
+      "src": "/assets/images/cards(.*)",
+      "dest": "/assets/images/cards/$1",
+      "headers": { "cache-control": "s-maxage=86400" }
+    },
+    {
+      "src": "/assets/images/(.*)",
+      "dest": "/assets/images/$1",
+      "headers": { "cache-control": "s-maxage=86400" }
+    },
+    {
       "src": "/assets/(.*)",
       "dest": "/assets/$1",
       "headers": { "cache-control": "s-maxage=86400" }
