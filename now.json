@@ -12,7 +12,7 @@
   ],
   "routes": [
     {
-      "src": "/assets/images/cards(.*)",
+      "src": "/assets/images/cards/(.*)",
       "dest": "/assets/images/cards/$1",
       "headers": { "cache-control": "s-maxage=86400" }
     },
