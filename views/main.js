@@ -10,8 +10,8 @@ function renderPlayer (player) {
   const data = player.showStats()
   const list = [...Array(data.cash).keys()]
   const hand = data.hand.split(', ')
-  const cards = hand.map(card => html`<img src="../assets/images/cards/${card}.png" alt="Card with value ${card}" class="w-24 p-0 m-0" />`)
-  const money = data.cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" alt="Token with value 1 dollar" class="w-12" />`) : ''
+  const cards = hand.map(card => html`<img src="/assets/images/cards/${card}.png" alt="Card with value ${card}" class="w-24 p-0 m-0" />`)
+  const money = data.cash > 0 ? list.map(item => html`<img src="/assets/images/token.png" alt="Token with value 1 dollar" class="w-12" />`) : ''
   return html`
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-2">
       <h1>${data.name} ${data.score}</h1>
@@ -26,7 +26,7 @@ function renderTable (cash) {
     return false
   }
   const list = [...Array(cash).keys()]
-  const money = cash > 0 ? list.map(item => html`<img src="../assets/images/token.png" alt="Token with value 1 dollar" class="w-12" />`) : ''
+  const money = cash > 0 ? list.map(item => html`<img src="/assets/images/token.png" alt="Token with value 1 dollar" class="w-12" />`) : ''
   return html`
     <div>
       ${money}
@@ -43,8 +43,8 @@ function view (state, emit) {
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-2">
           <div class="flex flex-row">
             <div class="flex-1">
-              ${state.playerOne ? html`<img src="../assets/images/${state.playerOne.showName()}.png" alt="Player avatar for ${state.playerOne.showName()}" class="w-24" />` : false}
-              ${state.playerTwo ? html`<img src="../assets/images/${state.playerTwo.showName()}.png" alt="Player avatar for ${state.playerTwo.showName()}" class="w-24" />` : false}
+              ${state.playerOne ? html`<img src="/assets/images/${state.playerOne.showName()}.png" alt="Player avatar for ${state.playerOne.showName()}" class="w-24" />` : false}
+              ${state.playerTwo ? html`<img src="/assets/images/${state.playerTwo.showName()}.png" alt="Player avatar for ${state.playerTwo.showName()}" class="w-24" />` : false}
             </div>
             <div class="flex-1">
             ${state.message}
