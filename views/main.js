@@ -6,19 +6,20 @@ module.exports = view
 function renderPlayer (player) {
   if (!player) {
     return false
+  } else {
+    const data = player.showStats()
+    const list = [...Array(data.cash).keys()]
+    const hand = data.hand.split(', ')
+    const cards = hand.map(card => html`<img src="/assets/images/cards/${card}.png" alt="Card with value ${card}" class="w-24 p-0 m-0" />`)
+    const money = data.cash > 0 ? list.map(item => html`<img src="/assets/images/token.png" alt="Token with value 1 dollar" class="w-12" />`) : ''
+    return html`
+      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-2">
+        <h1>${data.name} ${data.score}</h1>
+        <div>${cards}</div>
+        <div>${money}</div>
+      </div>
+    `
   }
-  const data = player.showStats()
-  const list = [...Array(data.cash).keys()]
-  const hand = data.hand.split(', ')
-  const cards = hand.map(card => html`<img src="/assets/images/cards/${card}.png" alt="Card with value ${card}" class="w-24 p-0 m-0" />`)
-  const money = data.cash > 0 ? list.map(item => html`<img src="/assets/images/token.png" alt="Token with value 1 dollar" class="w-12" />`) : ''
-  return html`
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-2">
-      <h1>${data.name} ${data.score}</h1>
-      <div>${cards}</div>
-      <div>${money}</div>
-    </div>
-  `
 }
 
 function renderTable (cash) {
