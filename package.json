@@ -21,7 +21,7 @@
     "tailwindcss": "1.0.4"
   },
   "devDependencies": {
-    "bankai": "9.15.0",
+    "bankai": "9.15.1",
     "choo-devtools": "3.0.0",
     "choo-scaffold": "1.2.0",
     "dependency-check": "3.3.0",
