@@ -14,7 +14,7 @@
     "refresh": "rm -rf node_modules && rm package-lock.json && npm install"
   },
   "dependencies": {
-    "choo": "7.0.0",
+    "choo": "7.1.0",
     "choo-service-worker": "3.0.0",
     "crypto-shuffle": "1.0.1",
     "sheetify": "8.0.0",
