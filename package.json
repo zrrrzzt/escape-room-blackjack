@@ -18,7 +18,7 @@
     "choo-service-worker": "3.0.0",
     "crypto-shuffle": "1.0.1",
     "sheetify": "8.0.0",
-    "tailwindcss": "1.4.1"
+    "tailwindcss": "1.4.4"
   },
   "devDependencies": {
     "bankai": "9.15.3",
