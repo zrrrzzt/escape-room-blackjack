@@ -2,7 +2,7 @@
   const createDeck = require('./lib/create-deck')
   const createPlayer = require('./lib/create-player')
   const pickWinner = require('./lib/pick-winner')
-  let deck = createDeck()
+  const deck = createDeck()
   let table = 0
   let gotWinner = []
   deck.shuffle()
@@ -35,7 +35,7 @@
       }
       // Draw
       if (gotWinner.length === 2) {
-        console.log(`It's a draw!`)
+        console.log('It\'s a draw!')
         gotWinner = []
       }
     } else {

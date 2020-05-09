@@ -8,10 +8,11 @@
     "inspect": "bankai inspect index.js",
     "start": "bankai start index.js",
     "test": "standard && npm run test-deps",
-    "test-deps": "dependency-check . && dependency-check . --extra --no-dev -i tailwindcss",
+    "test-deps": "dependency-check . --no-dev -i tailwindcss",
     "now-build": "bankai build index.js",
     "deploy": "now && now alias",
-    "refresh": "rm -rf node_modules && rm package-lock.json && npm install"
+    "refresh": "rm -rf node_modules && rm package-lock.json && npm install",
+    "standard-fix": "standard --fix"
   },
   "dependencies": {
     "choo": "7.1.0",

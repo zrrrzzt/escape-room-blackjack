@@ -29,7 +29,7 @@ function store (state, emitter) {
         state.message = 'Muuwahahahah! You can not beat me!'
       }
       if (state.playerTwo.showPocket() === 0) {
-        state.message = `Ok.. here's the secret code: 42`
+        state.message = 'Ok.. here\'s the secret code: 42'
       }
       emitter.emit(state.events.RENDER)
     })
